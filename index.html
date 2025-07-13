@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="as">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>কাঠ কেলকুলেটৰ (Wood Calculator)</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f8fd;
+      padding: 20px;
+      color: #222;
+    }
+
+    h1,
+    h2 {
+      color: #0d47a1;
+    }
+
+    .section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    label,
+    input,
+    button {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #0d47a1;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #08306b;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>কাঠ কেলকুলেটৰ (Wood Calculator)</h1>
+
+  <div class="section">
+    <h2>তক্তা বা বাটাম কাঠ</h2>
+    <label>দৈৰ্ঘ্য (ফুট): <input type="number" id="lengthRect" /></label>
+    <label>প্ৰস্থ (ইঞ্চি): <input type="number" id="breadth" /></label>
+    <label>উচ্চতা (ইঞ্চি): <input type="number" id="height" /></label>
+    <label>সংখ্যা: <input type="number" id="qtyRect" value="1" /></label>
+    <label>১ কেবিৰ মূল্য (টকা): <input type="number" id="pricePerKBRect" value="0" /></label>
+    <button onclick="calculateRectWood()">হিচাপ উলিয়াওক</button>
+    <p id="resultRect"></p>
+  </div>
+
+  <div class="section">
+    <h2>গোলাকাৰ কাঠ (কুণ্ডা)</h2>
+    <label>গোলাই (ইঞ্চি): <input type="number" id="gulai" /></label>
+    <label>দৈৰ্ঘ্য (ফুট): <input type="number" id="lengthRound" /></label>
+    <label>সংখ্যা: <input type="number" id="qtyRound" value="1" /></label>
+    <label>১ কেবিৰ মূল্য (টকা): <input type="number" id="pricePerKBRound" value="0" /></label>
+    <button onclick="calculateRoundWood()">হিচাপ উলিয়াওক</button>
+    <p id="resultRound"></p>
+  </div>
+
+  <footer>
+    &copy; Dr Sisir Kumar Rajbongshi
+  </footer>
+
+  <script>
+    function calculateRectWood() {
+      const l = parseFloat(document.getElementById("lengthRect").value);
+      const b = parseFloat(document.getElementById("breadth").value);
+      const h = parseFloat(document.getElementById("height").value);
+      const qty = parseInt(document.getElementById("qtyRect").value || "1");
+      const price = parseFloat(document.getElementById("pricePerKBRect").value);
+
+      const volumeInch = l * 12 * b * h;
+      const kbPerPiece = volumeInch / 1728;
+      const totalKB = kbPerPiece * qty;
+      const totalCost = totalKB * price;
+
+      document.getElementById("resultRect").innerText =
+        `মুঠ কেবি: ${totalKB.toFixed(2)}\nমুঠ মূল্য: ₹${totalCost.toFixed(2)}`;
+    }
+
+    function calculateRoundWood() {
+      const gulai = parseFloat(document.getElementById("gulai").value);
+      const l = parseFloat(document.getElementById("lengthRound").value);
+      const qty = parseInt(document.getElementById("qtyRound").value || "1");
+      const price = parseFloat(document.getElementById("pricePerKBRound").value);
+
+      const volumeInch = (gulai * gulai * l * 12) / 12.56;
+      const kbPerPiece = volumeInch / 1728;
+      const totalKB = kbPerPiece * qty;
+      const totalCost = totalKB * price;
+
+      document.getElementById("resultRound").innerText =
+        `মুঠ কেবি: ${totalKB.toFixed(2)}\nমুঠ মূল্য: ₹${totalCost.toFixed(2)}`;
+    }
+  </script>
+</body>
+
+</html>
